@@ -1,7 +1,7 @@
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.io.PrintWriter;
 
 public class Functions {
 
@@ -14,13 +14,30 @@ public class Functions {
         }
         return true;
     }
-
+    //PRE: Words must be the same forwards and backwards to be considered a palindrome
+    //POST: Prints and writes to the output whether each word in the list is a palindrome
     public static void testPalindrome(PrintWriter out){
         System.out.println("\nSTACK 1: PALINDROME");
         out.println("\nSTACK 1: PALINDROME");
         
         MyStack<Character> stack = new MyStack<>();
         ArrayList<String> wordList = new ArrayList<>(Arrays.asList("tacocat", "bubba","a", "mom","abba", "abccba", "abcba" ));
+        for (String word : wordList) {
+            for (char c : word.toCharArray()) {
+                stack.push(c);
+            }
+            boolean isPalindrome = true;
+            for (char c : word.toCharArray()) {
+                if (stack.pop() != c) {
+                    isPalindrome = false;
+                    break;
+                }
+            }
+            stack.clear(); // Clear the stack for the next word
+            String line = String.format("%-10s is a palindrome: %b", word, isPalindrome);
+            System.out.println(line);
+            out.println(line);
+        }
 
     }
 
