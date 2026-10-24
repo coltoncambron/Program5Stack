@@ -271,7 +271,11 @@ public class MyLinkedList<E> implements MyList<E> {
     StringBuilder result = new StringBuilder("[");
 
     Node<E> current = head;
-    for (int i = 0; i < size; i++) {
+
+    if(size == 0)
+        return "[]"; // This should fix BUG FOUND on line 278
+
+    for (int i = 0; i < size; i++) { //BUG FOUND: if size = 0, this loop is never executed so we get an list repsentation of [ 
       result.append(current.element);
       current = current.next;
       if (current != null) {

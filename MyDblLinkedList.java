@@ -141,9 +141,19 @@ public class MyDblLinkedList<E extends Comparable<? super E>>implements MyList<E
   //      save head element, remove head value & adjust pointers
   //      return saved element 
   public E removeFirst() {
-    //left as an exercise in Lecture 9
-    return null;
-
+    if(head == null)
+      return null;
+    E temp = head.element;
+    if(head.next == null){
+      head = null;
+      tail = null;
+      size--;
+      return temp;
+    }
+    head = head.next;
+    head.prev = null;
+    size--;
+    return temp;
   }
 //TASK 2: ADD BEFORE
 //PRE:  accepts 2 elements
@@ -153,17 +163,59 @@ public class MyDblLinkedList<E extends Comparable<? super E>>implements MyList<E
 //         else add new node prior to the location of insertion
 
   public void addBefore(E prior, E data) {
-    //left as an exercise in Lecture 9
-  
+    if(head == null) {
+      addFirst(data);
+      return;
+    }
+    Node<E> current = head;
+    while(current != null && !current.element.equals(prior)) {
+        current = current.next;
+    }
+    if(current == null) {
+        addLast(data);
+    } else {
+        Node<E> newNode = new Node<>(data);
+        newNode.next = current;
+        newNode.prev = current.prev;
+        if(current.prev != null) {
+            current.prev.next = newNode;
+        } else {
+            head = newNode;
+        }
+        current.prev = newNode;
+        size++;
+    }
   }
 
   //TASK 3: DELETE BEFORE
   //PRE:   Function accepts the element value immediately AFTER node to be deleted
   //POST:  The node prior to the value given is deleted 
   public E deleteBefore(E prior) {
-      //left as an exercise in Lecture 9
-      return null;
+      if(head == null || head.next == null) {
+          return null;
+      }
+      if(prior.equals(head.element)) {
+          return null;
+      }
+      Node<E> current = head.next;
+      while(current != null && !current.element.equals(prior)) {
+          current = current.next;
+      }
+      if(current == null) {
+          return null;
+      }
+      Node<E> toDelete = current.prev;
+      if(toDelete.prev != null) {
+          toDelete.prev.next = current;
+          current.prev = toDelete.prev;
+      } else {
+          head = current;
+          current.prev = null;
+      }
+      size--;
+      return toDelete.element;
   }
+  
 
   
   @Override
@@ -208,6 +260,9 @@ public class MyDblLinkedList<E extends Comparable<? super E>>implements MyList<E
     StringBuilder result = new StringBuilder("[");
 
     Node<E> current = head;
+    if(size == 0)
+        return "[]"; // empty list: loop below never runs, so "]" would never be added
+
     for (int i = 0; i < size; i++) {
       result.append(current.element);
       current = current.next;
@@ -237,7 +292,6 @@ public class MyDblLinkedList<E extends Comparable<? super E>>implements MyList<E
   //POST:checks data elements if found, returns true
   //     else returns false
   public boolean contains(Object e) {
-    // Left as an exercise in lecture 8 (same code)
     Node<E> current = head;
 
     for (int i = 0; i < size; i++) {
@@ -255,7 +309,6 @@ public class MyDblLinkedList<E extends Comparable<? super E>>implements MyList<E
   //POST:verify the index & return null if invalid
   //     return the element 
   public E get(int index) {
-    // Left as an exercise in lecture 8 (same code)
     if (size == 0 || index < 0 || index >= size) {
       return null;
     }
@@ -268,7 +321,6 @@ public class MyDblLinkedList<E extends Comparable<? super E>>implements MyList<E
   @Override /** Return the index of the head matching element in 
    *  this list. Return -1 if no match. */
   public int indexOf(Object e) {
-    // Left as an exercise in lecture 8 (same code)
     int position = 0;
     Node<E> current = head;
 
@@ -288,7 +340,6 @@ public class MyDblLinkedList<E extends Comparable<? super E>>implements MyList<E
   //POST:returns the last index if found or -1 if not 
 
   public int lastIndexOf(E e) {
-    // Left as an exercise in lecture 8 (same code)
     int position = size - 1, holdPosition = -1;
     Node<E> current = tail;
 
@@ -310,8 +361,6 @@ public class MyDblLinkedList<E extends Comparable<? super E>>implements MyList<E
   //     returns element
 
   public E set(int index, E e) {
-    // Left as an exercise in lecture 8 (same code)
-    //return null;
     if (size == 0 || index < 0 || index > size) {
       return null;
     }

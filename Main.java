@@ -1,5 +1,11 @@
-import java.io.PrintWriter;
+//Created by Colton Cambron and William [Last Name]
+//Project 5: Stack and Linked List Implementations
+//Sources: Class lecture notes, claude Opus 5.5 
+
+
+
 import java.io.IOException;
+import java.io.PrintWriter;
 
 public class Main {
 
