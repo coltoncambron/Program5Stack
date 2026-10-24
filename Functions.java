@@ -69,16 +69,41 @@ public class Functions {
             "6 5 3"));
 
 	}
-
+    //PRE: Accepts a open printwriter for report file
+    //POST: Prints and writes to the output the binary representation of each number
     public static void testDecToBinary(PrintWriter out) {
         System.out.println("\nSTACK 4: DECIMAL TO BINARY EVALUATOR");
         out.println("\nSTACK 4: DECIMAL TO BINARY EVALUATOR");
 
         ArrayList<Integer> binary = new ArrayList<>(Arrays.asList(15, 81, 105, 255, 256, 0, 1 ));
+        
+        for(int i =0; i< binary.size(); i++) {
+            int num = binary.get(i);
+            MyStack<Integer> stack = new MyStack<>();
+            while (num != 0) {
+                stack.push(num % 2);
+                num /= 2;
+            }
+            StringBuilder binaryStr = new StringBuilder();
+            while (!stack.isEmpty()) {
+                binaryStr.append(stack.pop());
+            }
+            if(binaryStr.isEmpty()){
+                binaryStr.append("0");
+            }
+            String line = String.format("The decimal value %-5d is %-12s in binary", binary.get(i), binaryStr.toString());
+            System.out.println(line);
+            out.println(line);
+        }
  
     }
 
-  
+    //Tests whether the brackets in each expression are balanced using a stack
+    //PRE:  accepts an open PrintWriter for the report file
+    //POST: opening brackets ( [ { are pushed and each closing bracket must
+    //      match the top of the stack; an expression is balanced only if no
+    //      mismatch occurs and the stack is empty at the end; one result line
+    //      per expression is written to the console and the report file
     public static void testIsBalanced(PrintWriter out) {
         System.out.println("\nSTACK 5: PARENTHESIS IS BALANCED EVALUATOR");
         out.println("\nSTACK 5: PARENTHESIS IS BALANCED EVALUATOR");
@@ -90,7 +115,38 @@ public class Functions {
             "([x + y] + {z * w})",
             "{(1 + [2 * 3]) - 4}",
             "([x + y] + z}"));
+        MyStack<Character> stack = new MyStack<>();
+
+        for(String exp : expList){
+            boolean balanced = true;
+            stack.clear();
+            for(char ch : exp.toCharArray()) {
+                if(ch == '(' || ch == '[' || ch == '{') {
+                    stack.push(ch);
+                } else if(ch == ')' || ch == ']' || ch == '}') {
+                    if(stack.isEmpty() || (ch == ')' && stack.peek() != '(') || (ch == ']' && stack.peek() != '[') || (ch == '}' && stack.peek() != '{')) {
+                        balanced = false;
+                        break;
+                    }
+                    char top = stack.peek();
+                    if((ch == ')' && top == '(') || (ch == ']' && top == '[') || (ch == '}' && top == '{')) {
+                        stack.pop();
+                    }
+                }
+            }
+
+            String result;
+            if(stack.isEmpty() && balanced) {
+                result = "is balanced";
+            } else {
+                result = "is not balanced";
+            }
+            String line = String.format("The expression %-25s %s", exp, result);
+            System.out.println(line);
+            out.println(line);
+        }
     }
+
 
     public static void testUndoRedo(PrintWriter out) {
         System.out.println("\nSTACK 6: UNDO REDO FUNCTION EVALUATOR");
