@@ -1,5 +1,6 @@
 //Created by Colton Cambron and William [Last Name]
 //Project 5: Stack and Linked List Implementations
+//Colton Cambron completed the implementation of palindrome, Balanced Parentheses, and Decimal to Binary functions.
 //Sources: Class lecture notes, claude Opus 5.5 
 
 
@@ -17,8 +18,8 @@ public class Main {
             Functions.testPalindrome(out);
             Functions.testPostFixExpression(out);
             Functions.testPreFixExpression(out);
-            Functions.testDecToBinary(out);
             Functions.testIsBalanced(out);
+            Functions.testDecToBinary(out);
             Functions.testUndoRedo(out);
             out.close();
         }

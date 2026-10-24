@@ -72,8 +72,8 @@ public class Functions {
     //PRE: Accepts a open printwriter for report file
     //POST: Prints and writes to the output the binary representation of each number
     public static void testDecToBinary(PrintWriter out) {
-        System.out.println("\nSTACK 4: DECIMAL TO BINARY EVALUATOR");
-        out.println("\nSTACK 4: DECIMAL TO BINARY EVALUATOR");
+        System.out.println("\nSTACK 5: DECIMAL TO BINARY EVALUATOR");
+        out.println("\nSTACK 5: DECIMAL TO BINARY EVALUATOR");
 
         ArrayList<Integer> binary = new ArrayList<>(Arrays.asList(15, 81, 105, 255, 256, 0, 1 ));
         
@@ -97,16 +97,14 @@ public class Functions {
         }
  
     }
-
-    //Tests whether the brackets in each expression are balanced using a stack
     //PRE:  accepts an open PrintWriter for the report file
     //POST: opening brackets ( [ { are pushed and each closing bracket must
     //      match the top of the stack; an expression is balanced only if no
     //      mismatch occurs and the stack is empty at the end; one result line
     //      per expression is written to the console and the report file
     public static void testIsBalanced(PrintWriter out) {
-        System.out.println("\nSTACK 5: PARENTHESIS IS BALANCED EVALUATOR");
-        out.println("\nSTACK 5: PARENTHESIS IS BALANCED EVALUATOR");
+        System.out.println("\nSTACK 4: PARENTHESIS IS BALANCED EVALUATOR");
+        out.println("\nSTACK 4: PARENTHESIS IS BALANCED EVALUATOR");
 
         ArrayList<String> expList = new ArrayList<>(Arrays.asList(
             "[7 + (4 - 3)] - (3 * 4)",
